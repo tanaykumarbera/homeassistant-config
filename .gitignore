@@ -1,0 +1,38 @@
+######################################
+## Home Assistant /config .gitignore
+## September 19, 2020
+## hi@tanay.co
+######################################
+
+# Exclude everything. Only include stuffs manually added.
+*
+
+# basic
+!.gitignore
+!configuration.yaml
+
+# lovelace
+!ui-lovelace.yaml
+!lovelace/
+!lovelace/*
+
+# config directories 
+# include directory + nested dir / files
+!automations/
+!automations/*
+
+!lights/
+!lights/*
+
+!persons/
+!persons/*
+
+!switches/
+!switches/*
+
+!sensors/
+!sensors/*
+
+!www/
+!www/static/
+!www/static/*

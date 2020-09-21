@@ -1,0 +1,88 @@
+##########################################
+# Secondary tabs
+#   Server Info
+#   Aug 21, 2020
+##########################################
+
+title: 'Server'
+icon: 'mdi:server-network'
+cards:  
+
+  # Personal device stats
+  - type: vertical-stack
+    cards:
+
+      # Person info
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: picture
+                image: !secret person_M1_user_image
+              - type: entities
+                entities:
+                  - entity: !secret person_M1_ref
+                  - entity: sensor.iphone_5s_battery_level
+                    name: iPhone 5s
+                  - entity: sensor.redmi_note_5_pro_battery_level
+                    name: Mi Note 5
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: picture
+                image: !secret person_M0_user_image
+              - type: entities
+                entities:
+                  - entity: !secret person_M0_ref
+                  - entity: sensor.nokia_8_1_battery_level
+                    name: Nokia 8.1
+                  - entity: sensor.nexus_6_battery_level
+                    name: Nexus 6
+
+      # Storage info
+      - type: markdown
+        content: >
+          ## Device storage
+      - type: entities
+        entities:
+          - entity: sensor.nexus_6_storage_sensor
+            name: Nexus 6 remaining space
+          - entity: sensor.nokia_8_1_storage_sensor
+            name: Nokia 8.1 remaining space
+
+  # HA server info
+  - type: vertical-stack
+    cards:
+      
+      # speed test
+      - type: custom:mini-graph-card
+        name: speedtest.com
+        icon: mdi:server
+        show:
+          graph: bar
+        entities:
+          - entity: sensor.speedtest_download
+          - entity: sensor.speedtest_upload
+
+      # local room sensor
+      - type: horizontal-stack
+        cards:
+          - type: sensor
+            name: CPU
+            entity: sensor.processor_use
+            graph: line
+          - type: sensor
+            name: MEM
+            entity: sensor.memory_use_percent
+            graph: line
+          - type: sensor
+            name: Disk
+            entity: sensor.disk_use_percent
+            graph: line
+
+      # Other generic info
+      - type: entities
+        entities:
+          - entity: sensor.speedtest_ping
+          - entity: sensor.hacs
+          - entity: sensor.last_boot

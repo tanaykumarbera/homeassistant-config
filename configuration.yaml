@@ -1,0 +1,54 @@
+######################################
+## Home assistant config
+## July 24, 2020
+## hi@tanay.co
+######################################
+
+default_config:
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Theme related stuffs
+frontend:
+  themes: !include_dir_merge_named themes
+  javascript_version: latest
+
+# ui config mode.
+lovelace:
+  mode: yaml
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# No groups, scripts or scene as of now
+# group: !include groups.yaml
+# script: !include scripts.yaml
+# scene: !include scenes.yaml
+
+# Automation
+automation: !include_dir_merge_list automations/
+
+# Lights and switches
+light: !include_dir_merge_list lights/
+switch: !include_dir_merge_list switches/
+
+# Sensor
+sensor: !include_dir_merge_list sensors/
+person: !include_dir_merge_list persons/
+
+# Enable ffmpeg component to process / record from cam
+ffmpeg:
+
+# speedtest.com
+speedtestdotnet: !include integrations/speedtest_dot_com_configs.yaml
+
+# Google assistant integration
+google_assistant: !include integrations/google_assistant_configs.yaml
+  
+# Tuya (Smartlife, Wipro, etc)
+tuya: !include integrations/tuya_configs.yaml
+
+# Extra HA custom configs
+homeassistant: !include ha_configs/homeassistant.yaml

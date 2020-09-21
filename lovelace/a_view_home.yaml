@@ -1,0 +1,167 @@
+##########################################
+# Main tab
+#   Home
+#   Aug 21, 2020
+##########################################
+
+title: 'Dashboard'
+icon: 'mdi:hololens'
+cards:  
+  - type: vertical-stack
+    cards:
+
+      # weather info
+      - type: custom:weather-card
+        entity: weather.nest_bengaluru
+        current: true
+        details: true
+        forecast: true
+        hourly_forecast: true
+        number_of_forecasts: 5
+
+      # local room sensor
+      - type: horizontal-stack
+        cards:
+          - type: sensor
+            entity: sensor.room_temperature
+            graph: line
+          - type: sensor
+            entity: sensor.room_humidity
+            graph: line
+
+  # Active devices
+  - type: vertical-stack
+    cards:
+      # header
+      - type: markdown
+        content: >
+          ## Active Devices
+      # only show with particular state
+      - type: entity-filter
+        card:
+          type: glance
+          show_state: false
+          columns: 4
+          style: |
+            ha-card {
+              min-height: 8em;
+            }
+        show_empty: true
+        state_filter:
+          - "on"
+          - "playing"
+          - "paused"
+        entities:
+          - entity: switch.bedroom_tv
+            name: Bedroom TV
+            icon: mdi:youtube-tv
+            tap_action:
+              action: toggle
+          - entity: light.backyard_light
+            name: Backyard
+            icon: mdi:ceiling-light
+            tap_action:
+              action: toggle
+          - entity: light.livingroom_mini_lamp
+            name: Living Room
+            icon: mdi:ceiling-light
+            tap_action:
+              action: toggle
+          - entity: light.wipro_bulb_one
+            name: Entrance bulb
+            icon: mdi:ceiling-light
+            tap_action:
+              action: toggle
+          - entity: light.window_strip_light
+            name: Window Strip
+            icon: mdi:led-strip-variant
+            tap_action:
+              action: toggle
+          - entity: media_player.speaker
+            name: Speaker
+            icon: mdi:google-home
+            tap_action:
+              action: toggle
+      - type: conditional
+        conditions:
+          - entity: media_player.screen
+            state_not: "off"
+          - entity: media_player.screen
+            state_not: "unavailable"
+        card:
+          entity: media_player.screen
+          type: custom:mini-media-player
+          artwork: cover
+          icon: mdi:monitor-speaker
+          hide:
+            volume: true
+            source: true
+            power_state: true
+      - type: conditional
+        conditions:
+          - entity: media_player.speaker
+            state_not: "off"
+          - entity: media_player.speaker
+            state_not: "unavailable"
+        card:
+          entity: media_player.speaker
+          type: custom:mini-media-player
+          artwork: cover
+          icon: mdi:google-home
+          hide:
+            volume: true
+            source: true
+            power_state: true
+      - type: conditional
+        conditions:
+          - entity: media_player.all_speaker
+            state_not: "off"
+          - entity: media_player.all_speaker
+            state_not: "unavailable"
+        card:
+          entity: media_player.all_speaker
+          type: custom:mini-media-player
+          artwork: cover
+          icon: mdi:access-point-network
+          hide:
+            volume: true
+            source: true
+            power_state: true
+
+      # Room short cuts
+      - type: horizontal-stack
+        cards:
+          - type: entities
+            title: Hall
+            show_header_toggle: false
+            entities:
+              - entity: binary_sensor.livingroom_illumination
+                name: Illumination
+              - entity: binary_sensor.livingroom_motion_detector
+                name: Motion
+              - entity: light.wipro_bulb_one
+                name: Entrance
+              - type: divider
+                style:
+                  background: '#ccc'
+                  height: 2px
+                  margin-top: 1em
+              - entity: media_player.speaker
+                icon: mdi:google-home
+          - type: entities
+            title: Bedroom
+            show_header_toggle: false
+            entities:
+              - entity: binary_sensor.livingroom_illumination
+                name: Illumination
+              - entity: switch.bedroom_tv
+                name: Bedroom TV
+              - entity: light.window_strip_light
+                name: Window LED
+              - type: divider
+                style:
+                  background: '#ccc'
+                  height: 2px
+                  margin-top: 1em
+              - entity: media_player.all_speakers
+                icon: mdi:google-home

@@ -1,0 +1,3 @@
+- platform: switch
+  name: timtim
+  entity_id: switch.timtim

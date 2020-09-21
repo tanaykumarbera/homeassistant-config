@@ -1,0 +1,16 @@
+######################################
+## List of members to identify
+## September 19, 2020
+######################################
+
+- id: !secret person_M0_id
+  name: !secret person_M0_name
+  user_id: !secret person_M0_user_id
+  device_trackers:
+    - !secret person_M0_device_01
+
+- id: !secret person_M1_id
+  name: !secret person_M1_name
+  user_id: !secret person_M1_user_id
+  device_trackers:
+    - !secret person_M1_device_01

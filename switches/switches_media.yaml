@@ -1,0 +1,17 @@
+- platform: template
+  switches:
+    speaker:
+      friendly_name: "Living Room Speaker"
+      value_template: "{{ not (is_state('media_player.speaker', 'unavailable') or is_state('media_player.speaker', 'off')) }}"
+      availability_template: >-
+        {% if not is_state("media_player.speaker", "unavailable") %}
+          true
+        {% else %}
+          false
+        {%- endif %}
+      turn_on:
+        - service: media_player.turn_on
+          entity_id: media_player.speaker
+      turn_off:
+        - service: media_player.turn_off
+          entity_id: media_player.speaker

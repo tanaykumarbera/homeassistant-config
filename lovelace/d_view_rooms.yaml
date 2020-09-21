@@ -1,0 +1,183 @@
+##########################################
+# Secondary tabs
+#   All rooms tab
+#   Aug 22, 2020
+##########################################
+
+title: 'Home'
+icon: 'mdi:stadium'
+cards:
+
+  # auto guards
+  - type: vertical-stack
+    cards:
+      - type: markdown
+        content: >
+          ## Auto Guards
+      - type: horizontal-stack
+        cards:
+          - type: glance
+            show_name: true
+            show_state: false
+            entities:
+              - entity: switch.entrance_autoguard
+                name: Entrance
+                icon: mdi:robot
+                tap_action:
+                  action: toggle
+          - type: glance
+            show_name: true
+            show_state: false
+            entities:
+              - entity: switch.backyard_autoguard
+                name: Backyard
+                icon: mdi:robot
+                tap_action:
+                  action: toggle
+          - type: glance
+            show_name: true
+            show_state: false
+            entities:
+              - entity: switch.livingroom_autoguard
+                name: Hall
+                icon: mdi:robot
+                tap_action:
+                  action: toggle
+          - type: glance
+            show_name: true
+            show_state: false
+            entities:
+              - entity: switch.bedroom_autoguard
+                name: Bedroom
+                icon: mdi:robot
+                tap_action:
+                  action: toggle
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            min-height: 16em;
+          }
+        # name: Room sensors
+        show:
+          graph: bar
+        entities:
+          - entity: sensor.room_temperature
+      - type: custom:mini-graph-card
+        # name: Room sensors
+        show:
+          graph: bar
+        entities:
+          - entity: sensor.room_humidity
+
+  - type: custom:vertical-stack-in-card
+    cards:
+      # header
+      - type: markdown
+        content: >
+          ## Cam
+      - type: horizontal-stack
+        cards:
+
+          - type: conditional
+            conditions:
+              - entity: camera.livingroom_cam
+                state: "unavailable"
+            card:
+              type: picture
+              image: /local/static/camera_unavailable.jpg
+              style: |
+                ha-card {
+                  margin: 1em
+                }
+
+          - type: conditional
+            conditions:
+              - entity: camera.livingroom_cam
+                state_not: "unavailable"
+            card:
+              type: picture-entity
+              entity: camera.livingroom_cam
+              aspect_ratio: 0%
+              style: |
+                ha-card {
+                  margin: 1em
+                }
+
+          - type: conditional
+            conditions:
+              - entity: camera.backyard_cam
+                state: "unavailable"
+            card:
+              type: picture
+              image: /local/static/camera_unavailable.jpg
+              style: |
+                ha-card {
+                  margin: 1em
+                }
+
+          - type: conditional
+            conditions:
+              - entity: camera.backyard_cam
+                state_not: "unavailable"
+            card:
+              type: picture-entity
+              entity: camera.backyard_cam
+              aspect_ratio: 0%
+              style: |
+                ha-card {
+                  margin: 1em
+                }
+
+      - type: entities
+        entities:
+          - entity: binary_sensor.backyard_motion_sensor
+            name: Backyard Motion
+          - entity: light.backyard_light
+            name: Backyard Light
+
+  - type: vertical-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: >
+              ## Hall
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: binary_sensor.livingroom_illumination
+                name: Illumination
+              - entity: binary_sensor.livingroom_motion_detector
+                name: Motion
+              - entity: light.livingroom_mini_lamp
+                name: Mini Lamp
+              - entity: light.wipro_bulb_one
+                name: Entrance bulb
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: >
+              ## Bedroom
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: binary_sensor.livingroom_illumination
+                name: Illumination
+              - entity: switch.bedroom_tv
+                name: Bedroom TV
+              - entity: light.window_strip_light
+                name: Window LED
+              - type: 'custom:rgb-light-card'
+                entity: light.window_strip_light
+                justify: between
+                colors:
+                  - rgb_color: [200, 146, 255]
+                  - rgb_color: [222, 40, 254]
+                  - rgb_color: [59, 37, 253]
+                  - rgb_color: [11, 243, 134]
+                  - rgb_color: [18, 254, 255]
+                  - rgb_color: [254, 83, 66]
+                  - rgb_color: [255, 255, 255]

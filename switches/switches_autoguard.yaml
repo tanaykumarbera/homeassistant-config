@@ -1,0 +1,60 @@
+- platform: template
+  switches:
+    backyard_autoguard:
+        friendly_name: "Backyard Autoguard"
+        turn_on:
+        turn_off:
+        availability_template: >-
+          {% if not is_state("binary_sensor.backyard_motion_sensor", "unavailable") %}
+            true
+          {% else %}
+            false
+          {% endif %}
+        icon_template: >-
+          {% if is_state('switch.backyard_autoguard', 'on') %}
+            mdi:shield.lock
+          {% else %}
+            mdi:shield-open
+          {% endif %}
+    livingroom_autoguard:
+        friendly_name: "Living Room Autoguard"
+        turn_on:
+        turn_off:
+        availability_template: >-
+          {% if not is_state("binary_sensor.livingroom_motion_detector", "unavailable") %}
+            true
+          {% else %}
+            false
+          {% endif %}
+        icon_template: >-
+          {% if is_state('switch.livingroom_autoguard', 'on') %}
+            mdi:shield.lock
+          {% else %}
+            mdi:shield-open
+          {% endif %}
+    bedroom_autoguard:
+        friendly_name: "Bedroom Autoguard"
+        turn_on:
+        turn_off:
+        availability_template: >-
+          {% if not is_state("switch.bedroom_tv", "unavailable") %}
+            true
+          {% else %}
+            false
+          {% endif %}
+        icon_template: >-
+          {% if is_state('switch.bedroom_autoguard', 'on') %}
+            mdi:fan
+          {% else %}
+            mdi:fan-off
+          {% endif %}
+    entrance_autoguard:
+        friendly_name: "Entrance Autoguard"
+        turn_on:
+        turn_off:
+        icon_template: >-
+          {% if is_state('switch.entrance_autoguard', 'on') %}
+            mdi:fan
+          {% else %}
+            mdi:fan-off
+          {% endif %}
