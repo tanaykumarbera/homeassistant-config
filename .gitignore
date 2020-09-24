@@ -11,6 +11,12 @@
 !.gitignore
 !configuration.yaml
 
+# public
+!README.md
+!LICENSE
+!public/
+!public/*
+
 # lovelace
 !ui-lovelace.yaml
 !lovelace/
