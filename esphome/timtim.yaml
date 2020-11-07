@@ -1,0 +1,57 @@
+esphome:
+  name: timtim
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Manual ip config
+  manual_ip:
+    static_ip: !secret node_timtim_ip
+    gateway: !secret wifi_esp_gateway
+    subnet: !secret wifi_esp_subnet
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: !secret node_timtim_failsafe_hotspot
+    password: !secret node_timtim_failsafe_password
+
+captive_portal:
+
+# Enable Home Assistant API
+api:
+  password: !secret node_timtim_api_key
+
+ota: 
+  password: !secret node_timtim_ota_key
+
+# Enable logging
+logger:
+  baud_rate: 0 #need this to free up UART pins
+
+uart:
+  baud_rate: 115200 # speed to STC15L101EW
+  tx_pin: GPIO1
+  rx_pin: GPIO3
+
+switch:
+  - platform: template
+    name: 'Timtim'
+    id: timtim
+    turn_on_action:
+      - uart.write: [0xA0, 0x01, 0x01, 0xA2]
+    turn_off_action:
+      - uart.write: [0xA0, 0x01, 0x00, 0xA1]
+    optimistic: true
+  # - platform: template
+  #   name: 'Timtim Motion feed back'
+  #   id: timtim_motion_feedback
+  #   turn_on_action:
+  #     - uart.write: [0xA0, 0x02, 0x01, 0xA3]
+  #   turn_off_action:
+  #     - uart.write: [0xA0, 0x02, 0x00, 0xA2]
+  #   optimistic: true
+  - platform: restart
+    name: "Restart timtim"

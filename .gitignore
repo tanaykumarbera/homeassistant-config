@@ -42,3 +42,11 @@
 !www/
 !www/static/
 !www/static/*
+
+# esphome
+!esphome/
+!esphome/backyard.yaml
+!esphome/bedroom.yaml
+!esphome/nightcrawler.yaml
+!esphome/rgbstriplight.h
+!esphome/timtim.yaml

@@ -1,7 +1,5 @@
 #custom cumponent requirements
 resources:
-  - url: /hacsfiles/custom-header/custom-header.js
-    type: module
   - url: /local/components/mini-media-player-bundle.js?v=1.10.1
     type: module
   - url: /hacsfiles/lovelace-card-mod/card-mod.js
@@ -14,14 +12,6 @@ resources:
     type: module
   - url: /hacsfiles/weather-card/weather-card.js
     type: module
-
-# additional customization for custom header to support themes
-custom_header:
-  compact_mode: true
-  active_tab_color: var(--state-icon-active-color)
-  background: var(--app-header-background-color)
-  elements_color: var(--app-header-text-color)
-  tab_indicator_color: var(--state-icon-active-color)
 
 # iterate and combine all tabs from directory
 views: !include_dir_list lovelace/
